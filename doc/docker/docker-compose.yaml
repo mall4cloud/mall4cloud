@@ -17,12 +17,13 @@ services:
       - ./mysql/initdb:/docker-entrypoint-initdb.d
 
   mall4cloud-minio:
-    image: minio/minio:RELEASE.2021-06-17T00-10-46Z
+    image: bitnami/minio:latest
     container_name: mall4cloud-minio
     restart: always
-    command: server /data
+#    command: server /data
     ports:
       - "39000:9000"
+      - "39001:9001"
     volumes:
       - ./minio/data:/data
     environment:
