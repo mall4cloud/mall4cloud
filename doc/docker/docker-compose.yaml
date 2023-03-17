@@ -7,8 +7,10 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_HOST=192.168.120.132
+      - MYSQL_PORT=33306
     ports:
-      - 3306:3306
+      - "33306:3306"
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/conf.d:/etc/mysql/conf.d
@@ -20,7 +22,7 @@ services:
     restart: always
     command: server /data
     ports:
-      - 9000:9000
+      - "39000:9000"
     volumes:
       - ./minio/data:/data
     environment:
@@ -32,7 +34,7 @@ services:
     container_name: mall4cloud-redis
     restart: always
     ports:
-      - 6379:6379
+      - "36379:6379"
 
 
   mall4cloud-nacos:
@@ -42,16 +44,17 @@ services:
     depends_on:
       - mall4cloud-mysql
     ports:
-      - 8848:8848
-      - 9848:9848
-      - 9849:9849
+      - "38848:8848"
+      - "39848:9848"
+      - "39849:9849"
     environment:
       - JVM_XMS=256m
       - JVM_XMX=256m
       - MODE=standalone
       - PREFER_HOST_MODE=hostname
       - SPRING_DATASOURCE_PLATFORM=mysql
-      - MYSQL_SERVICE_HOST=192.168.1.46
+      - MYSQL_SERVICE_HOST=192.168.120.132
+      - MYSQL_SERVICE_PORT=33306
       - MYSQL_SERVICE_DB_NAME=mall4cloud_nacos
       - MYSQL_SERVICE_USER=root
       - MYSQL_SERVICE_PASSWORD=root
@@ -67,10 +70,11 @@ services:
       - mall4cloud-mysql
       - mall4cloud-nacos
     ports:
-      - 8091:8091
-      - 7091:7091
+      - "38091:38091"
+      - "37091:7091"
     environment:
-      - SEATA_IP=192.168.1.41
+      - SEATA_IP=192.168.120.132
+      - SEATA_PORT=38091
     volumes:
       - ./seata/application.yml:/seata-server/resources/application.yml
 
@@ -79,8 +83,8 @@ services:
     container_name: mall4cloud-elasticsearch
     restart: always
     ports:
-      - 9200:9200
-      - 9300:9300
+      - "39200:9200"
+      - "39300:9300"
     environment:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
@@ -94,7 +98,7 @@ services:
     container_name: mall4cloud-kibana
     restart: always
     ports:
-      - 5601:5601
+      - "35601:5601"
     links:
       - mall4cloud-elasticsearch:elasticsearch
     depends_on:
@@ -105,7 +109,7 @@ services:
     container_name: mall4cloud-canal
     restart: always
     ports:
-      - 11111:11111
+      - "31111:11111"
     volumes:
       - ./canal/conf/example:/home/admin/canal-server/conf/example
       - ./canal/conf/canal.properties:/home/admin/canal-server/conf/canal.properties
@@ -117,7 +121,7 @@ services:
     container_name: mall4cloud-rocketmq-namesrv
     restart: always
     ports:
-      - 9876:9876
+      - "39876:9876"
     volumes:
       - ./rocketmq/namesrv/logs:/home/rocketmq/logs
       - ./rocketmq/namesrv/store:/home/rocketmq/store
@@ -134,8 +138,8 @@ services:
     container_name: mall4cloud-rocketmq-broker
     restart: always
     ports:
-      - 10909:10909
-      - 10911:10911
+      - "30909:10909"
+      - "30911:10911"
     volumes:
       - ./rocketmq/broker/logs:/home/rocketmq/logs
       - ./rocketmq/broker/store:/home/rocketmq/store
@@ -156,7 +160,7 @@ services:
     container_name: mall4cloud-rocketmq-dashboard
     restart: always
     ports:
-      - 8180:8080
+      - "38180:8080"
     environment:
       JAVA_OPTS: "-Drocketmq.namesrv.addr=mall4cloud-rocketmq-namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
     depends_on:
