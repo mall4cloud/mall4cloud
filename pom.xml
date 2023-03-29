@@ -35,7 +35,7 @@
         <!-- 核心依赖 -->
         <spring-boot.version>2.7.7</spring-boot.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
 
         <!--分离出这两个东西，是为了能够在 spring cloud alibaba不更新的时候，及时更新-->
         <seata.version>1.6.1</seata.version>
@@ -108,10 +108,10 @@
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata.version}</version>
                 <exclusions>
-                    <exclusion>
-                        <groupId>com.google.guava</groupId>
-                        <artifactId>guava</artifactId>
-                    </exclusion>
+<!--                    <exclusion>-->
+<!--                        <groupId>com.google.guava</groupId>-->
+<!--                        <artifactId>guava</artifactId>-->
+<!--                    </exclusion>-->
                     <exclusion>
                         <groupId>com.alibaba</groupId>
                         <artifactId>druid</artifactId>

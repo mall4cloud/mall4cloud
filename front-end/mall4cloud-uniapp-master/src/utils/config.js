@@ -14,7 +14,7 @@ var wsDomain = 'ws://192.168.1.11:8000' // 统一接口域名，测试环境
 var picDomain = 'http://img-test.gz-yami.com/' // 图片域名
 
 // 访问文件存储资源的url 对应阿里云的Bucket域名
-var resourcesUrl = 'http://192.168.1.46:9000/mall4cloud'
+var resourcesUrl = 'http://192.168.120.132:39000/mall4cloud'
 // var resourcesUrl = 'http://192.168.1.107:9000/mall4cloud'
 
 // 文件上传类型 0.阿里云 1.minIo
